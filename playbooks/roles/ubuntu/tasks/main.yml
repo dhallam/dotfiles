@@ -1,0 +1,19 @@
+---
+- name: Update packages
+  apt: upgrade=dist update_cache=yes
+  sudo: true
+
+- name: Install libraries and apps
+  apt: name={{item}} state=latest
+  sudo: true
+  with_items:
+    - curl
+    - git
+    - wget
+    - htop
+    - vim
+    - zsh
+
+- name: Change shell to ZSH
+  sudo: true
+  user: shell=/bin/zsh name={{ansible_ssh_user}}
