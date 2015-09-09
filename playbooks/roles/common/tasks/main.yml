@@ -8,6 +8,8 @@
   with_items:
     - .vimrc
     - .zshrc
+    - .zsh_aliases
+    - .zshenv
 
 - name: Clone Vundle
   git: repo=https://github.com/gmarik/Vundle.vim.git dest=~/.vim/bundle/Vundle.vim
@@ -15,4 +17,6 @@
 - name: Install/update VIM plugins
   command: vim +PluginInstall! +qall
 
+- name: Clone antigen
+  git: repo=https://github.com/zsh-users/antigen dest=~/.antigen
 
