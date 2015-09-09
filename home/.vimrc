@@ -41,7 +41,7 @@ set backspace=indent,eol,start
 
 
 " NERDTree
-nmap <leader>n :NERDTreeToggle<CR>
+map <F2> :NERDTreeToggle<CR>
 let NERDTreeHighlightCursorline=1
 let NERDTreeIgnore = ['.git']
 
