@@ -26,7 +26,26 @@
     - oracle-java8-installer
     - virtualbox
     - python-pip
+    - jmeter
+    - tmux
+    - libxml2-utils
+    - xsltproc
+    - indicator-multiload
+
+- name: Download deb files
+  get_url: 
+    url={{item}}
+    dest=/tmp
+  with_items:
+    - https://dl.bintray.com/mitchellh/vagrant/vagrant_1.7.4_x86_64.deb
+
+- name: Install deb files
+  sudo: true
+  apt: deb=/tmp/{{item}}
+  with_items:
+    - vagrant_1.7.4_x86_64.deb
 
 - name: Change shell to ZSH
   sudo: true
   user: shell=/bin/zsh name={{ansible_ssh_user}}
+

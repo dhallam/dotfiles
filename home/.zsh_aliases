@@ -5,6 +5,9 @@ alias l="ls"
 # find
 alias findf="find -type f"
 
+# XML
+alias xmlf="xmllint --format"
+
 # git aliases
 alias ga="git add"
 alias gaa="git aa"
