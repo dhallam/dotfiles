@@ -10,6 +10,7 @@
     - .zshrc
     - .zsh_aliases
     - .zshenv
+    - .dmrc
 
 - name: Install libraries and apps
   apt: name={{item}} state=latest

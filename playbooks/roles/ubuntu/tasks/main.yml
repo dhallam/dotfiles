@@ -8,7 +8,7 @@
   sudo: true
 
 - name: Update packages
-  apt: upgrade=dist update_cache=yes
+  apt: upgrade=yes update_cache=yes
   sudo: true
 
 - name: Auto accept java license
@@ -17,8 +17,15 @@
   args:
     creates: /etc/oracle-java-8-licence-acceptance
 
+- name: Install chrome
+  apt: name={{item}} state=latest force=yes 
+  sudo: true
+  with_items:
+    - google-chrome-stable
+
+
 - name: Install libraries and apps
-  apt: name={{item}} state=latest
+  apt: name={{item}} state=latest 
   sudo: true
   with_items:
     - curl
@@ -37,7 +44,6 @@
     - xsltproc
     - indicator-multiload
     - meld
-    - google-chrome-stable
     - ubuntu-mate-core
     - ubuntu-mate-desktop
 
@@ -67,13 +73,14 @@
   sudo: true
   apt: name=nodejs state=latest
 
-- name: Update keyboard layout
-  sudo: true
-  shell: sed -i 's/XKBLAYOUT.*/XKBLAYOUT="uk"/g' /etc/default/keyboard
+- name: Dump ibus config
+  shell: dconf dump /desktop/ibus/ > /tmp/ibus.kb 
 
-- name: Update keyboard model
-  sudo: true
-  shell: sed -i 's/XKBMODEL.*/XKBMODEL="pc105"/g' /etc/default/keyboard
+- name: Update the input method
+  shell: sed -i "s/preload-engines=.*/preload-engines=['xkb:gb:extd:eng']/g" /tmp/ibus.kb
+
+- name: Reload the ibus config
+  shell: dconf load /desktop/ibus/ < /tmp/ibus.kb
 
 - name: Change shell to ZSH
   sudo: true
