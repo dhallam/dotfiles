@@ -3,6 +3,10 @@
   apt_repository: repo='ppa:webupd8team/java'
   sudo: true
 
+- name: Add apt repo for google chrome
+  apt_repository: repo='deb http://dl.google.com/linux/chrome/deb/ stable main' state=present
+  sudo: true
+
 - name: Update packages
   apt: upgrade=dist update_cache=yes
   sudo: true
@@ -23,6 +27,7 @@
     - htop
     - vim
     - zsh
+    - build-essential
     - oracle-java8-installer
     - virtualbox
     - python-pip
@@ -32,19 +37,43 @@
     - xsltproc
     - indicator-multiload
     - meld
+    - google-chrome-stable
+    - ubuntu-mate-core
+    - ubuntu-mate-desktop
 
-- name: Download deb files
+- name: Download Vagrant deb files
   get_url: 
-    url={{item}}
-    dest=/tmp
-  with_items:
-    - https://dl.bintray.com/mitchellh/vagrant/vagrant_1.7.4_x86_64.deb
+    url=https://dl.bintray.com/mitchellh/vagrant/vagrant_1.7.4_x86_64.deb
+    dest=/tmp/vagrant.deb
 
 - name: Install deb files
   sudo: true
-  apt: deb=/tmp/{{item}}
-  with_items:
-    - vagrant_1.7.4_x86_64.deb
+  apt: deb=/tmp/vagrant.deb
+
+- name: Download Atom deb files
+  get_url: 
+    url=https://atom.io/download/deb
+    dest=/tmp/atom.deb
+                
+- name: Install deb files
+  sudo: true
+  apt: deb=/tmp/atom.deb
+
+- name: Setup Node install
+  sudo: true
+  shell: curl -sL https://deb.nodesource.com/setup_4.x | bash -
+
+- name: Install Node
+  sudo: true
+  apt: name=nodejs state=latest
+
+- name: Update keyboard layout
+  sudo: true
+  shell: sed -i 's/XKBLAYOUT.*/XKBLAYOUT="uk"/g' /etc/default/keyboard
+
+- name: Update keyboard model
+  sudo: true
+  shell: sed -i 's/XKBMODEL.*/XKBMODEL="pc105"/g' /etc/default/keyboard
 
 - name: Change shell to ZSH
   sudo: true

@@ -11,6 +11,12 @@
     - .zsh_aliases
     - .zshenv
 
+- name: Install libraries and apps
+  apt: name={{item}} state=latest
+  sudo: true
+  with_items:
+    - vim
+
 - name: Clone Vundle
   git: repo=https://github.com/gmarik/Vundle.vim.git dest=~/.vim/bundle/Vundle.vim
 
