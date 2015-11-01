@@ -73,11 +73,8 @@
   sudo: true
   apt: name=nodejs state=latest
 
-- name: Dump ibus config
-  shell: dconf dump /desktop/ibus/ > /tmp/ibus.kb 
-
 - name: Update the input method
-  shell: sed -i "s/preload-engines=.*/preload-engines=['xkb:gb:extd:eng']/g" /tmp/ibus.kb
+  shell: dconf write /desktop/ibus/general/preload-engines "['xkb:gb:extd:eng']"
 
 - name: Reload the ibus config
   shell: dconf load /desktop/ibus/ < /tmp/ibus.kb
