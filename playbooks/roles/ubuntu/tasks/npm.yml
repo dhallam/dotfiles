@@ -1,0 +1,11 @@
+---
+- name: Install globals
+  sudo: true
+  npm: name={{item}} global=yes
+  with_items:
+    - browserify
+    - webpack
+    - jspm
+    - bower
+
+

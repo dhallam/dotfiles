@@ -1,0 +1,10 @@
+---
+# Should use an apm ansible module
+
+- name: Install apm modules
+  sudo: true
+  shell: apm install {{item}} 
+  with_items:
+    - react
+
+

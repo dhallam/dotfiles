@@ -86,3 +86,6 @@
   sudo: true
   user: shell=/bin/zsh name={{ansible_ssh_user}}
 
+- include: npm.yml
+- include: atom.yml
+
