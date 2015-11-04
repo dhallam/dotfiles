@@ -1,0 +1,35 @@
+---
+
+- name: Add apt repo for java
+  apt_repository: repo='ppa:webupd8team/java'
+  sudo: true
+
+- name: Add apt repo for google chrome
+  apt_repository: repo='deb http://dl.google.com/linux/chrome/deb/ stable main' state=present
+  sudo: true
+
+- name: Update packages
+  apt: upgrade=full update_cache=yes
+  sudo: true
+
+- name: Install libraries and apps
+  apt: name={{item}} state=latest
+  sudo: true
+  with_items:
+    - curl
+    - git
+    - wget
+    - htop
+    - vim
+    - zsh
+    - build-essential
+    - virtualbox
+    - python-pip
+    - jmeter
+    - tmux
+    - libxml2-utils
+    - xsltproc
+    - indicator-multiload
+    - meld
+    - ubuntu-mate-core
+    - ubuntu-mate-desktop

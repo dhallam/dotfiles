@@ -1,0 +1,8 @@
+---
+
+- name: Clone antigen
+  git: repo=https://github.com/zsh-users/antigen dest=~/.antigen
+
+- name: Change shell to ZSH
+  sudo: true
+  user: shell=/bin/zsh name={{ansible_ssh_user}}

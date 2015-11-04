@@ -1,10 +1,17 @@
 ---
-# Should use an apm ansible module
+  
+- name: Download Atom deb files
+  get_url:
+    url=https://atom.io/download/deb
+    dest=/tmp/atom.deb
 
+- name: Install deb files
+  sudo: true
+  apt: deb=/tmp/atom.deb
+
+# Should use an apm ansible module
 - name: Install apm modules
   sudo: true
-  shell: apm install {{item}} 
+  shell: apm install {{item}}
   with_items:
     - react
-
-

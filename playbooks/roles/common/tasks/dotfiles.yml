@@ -1,0 +1,13 @@
+---
+
+- name: Symlink dotfiles
+  file: src=~/dotfiles/home/{{item}}
+        dest=~/{{item}}
+        state=link
+        force=yes
+  with_items:
+    - .vimrc
+    - .zshrc
+    - .zsh_aliases
+    - .zshenv
+    - .dmrc
