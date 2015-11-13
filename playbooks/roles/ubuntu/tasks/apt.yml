@@ -4,6 +4,14 @@
   apt_repository: repo='ppa:webupd8team/java'
   sudo: true
 
+- name: Add apt Mate repo
+  apt_repository: repo='ppa:ubuntu-mate-dev/ppa'
+  sudo: true
+
+- name: Ad apt Mate Dev repo
+  apt_repository: repo='ppa:ubuntu-mate-dev/trusty-mate'
+  sudo: true
+
 - name: Add apt repo for google chrome
   apt_repository: repo='deb http://dl.google.com/linux/chrome/deb/ stable main' state=present
   sudo: true
