@@ -1,0 +1,7 @@
+---
+
+- name: Update the input method to GB keyboard (requires X11 window)
+  shell: dconf write /desktop/ibus/general/preload-engines "['xkb:gb:extd:eng']"
+
+- name: Update the mate-terminal shell to zsh
+  shell: dconf write /org/mate/terminal/profiles/default/custom-command "'/bin/zsh'"

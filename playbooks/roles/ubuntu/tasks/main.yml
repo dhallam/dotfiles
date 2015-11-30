@@ -1,52 +1,10 @@
 ---
-- name: Add apt repo for java
-  apt_repository: repo='ppa:webupd8team/java'
-  sudo: true
 
-- name: Update packages
-  apt: upgrade=dist update_cache=yes
-  sudo: true
-
-- name: Auto accept java license
-  sudo: true
-  shell: echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | tee /etc/oracle-java-8-licence-acceptance | /usr/bin/debconf-set-selections
-  args:
-    creates: /etc/oracle-java-8-licence-acceptance
-
-- name: Install libraries and apps
-  apt: name={{item}} state=latest
-  sudo: true
-  with_items:
-    - curl
-    - git
-    - wget
-    - htop
-    - vim
-    - zsh
-    - oracle-java8-installer
-    - virtualbox
-    - python-pip
-    - jmeter
-    - tmux
-    - libxml2-utils
-    - xsltproc
-    - indicator-multiload
-    - meld
-
-- name: Download deb files
-  get_url: 
-    url={{item}}
-    dest=/tmp
-  with_items:
-    - https://dl.bintray.com/mitchellh/vagrant/vagrant_1.7.4_x86_64.deb
-
-- name: Install deb files
-  sudo: true
-  apt: deb=/tmp/{{item}}
-  with_items:
-    - vagrant_1.7.4_x86_64.deb
-
-- name: Change shell to ZSH
-  sudo: true
-  user: shell=/bin/zsh name={{ansible_ssh_user}}
-
+- include: apt.yml
+- include: java.yml
+- include: chrome.yml
+- include: node.yml
+- include: atom.yml
+- include: vagrant.yml
+- include: zsh.yml
+#- include: dconf.yml

@@ -1,0 +1,11 @@
+---
+
+- name: Add apt repo for google chrome
+  apt_repository: repo='deb http://dl.google.com/linux/chrome/deb/ stable main' state=present
+  sudo: true
+
+- name: Install chrome
+  apt: name={{item}} state=latest force=yes
+  sudo: true
+  with_items:
+    - google-chrome-stable

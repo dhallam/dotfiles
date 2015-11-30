@@ -1,0 +1,13 @@
+---
+
+- name: Auto accept java license
+  sudo: true
+  shell: echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | tee /etc/oracle-java-8-licence-acceptance | /usr/bin/debconf-set-selections
+  args:
+    creates: /etc/oracle-java-8-licence-acceptance
+
+- name: Install libraries and apps
+  apt: name={{item}} state=latest
+  sudo: true
+  with_items:
+    - oracle-java8-installer

@@ -1,0 +1,10 @@
+---
+  
+- name: Download Vagrant deb files
+  get_url:
+    url=https://dl.bintray.com/mitchellh/vagrant/vagrant_1.7.4_x86_64.deb
+    dest=/tmp/vagrant.deb
+
+- name: Install deb files
+  sudo: true
+  apt: deb=/tmp/vagrant.deb
